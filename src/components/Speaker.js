@@ -4,7 +4,7 @@ import { SpeakerFilterContext } from '../contexts/SpeakerFilterContext';
 function Session({ title, room }) {
   return (
     <span className='session w-100'>
-      {title} <strong>Room: {room}</strong>
+      {title} <strong>Room: {room.name}</strong>
     </span>
   );
 }
@@ -19,7 +19,7 @@ function Sessions({ sessions }) {
         })
         .map(function (session) {
           return (
-            <div className='session w-100' kay={session.id}>
+            <div className='session w-100' key={session.id}>
               <Session {...session} />
             </div>
           );

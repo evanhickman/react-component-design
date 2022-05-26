@@ -16,19 +16,19 @@ function SpeakerFilterProvider({
     searchQuery,
     setSearchQuery,
     EVENT_YEARS,
-  } = useSpeakerFilter(startingShowSessions);
+  } = useSpeakerFilter(startingShowSessions, startingEventYear);
 
   return (
     <SpeakerFilterContext.Provider
-      value={
-        (showSessions,
+      value={{
+        showSessions,
         setShowSessions,
         eventYear,
         setEventYear,
         searchQuery,
         setSearchQuery,
-        EVENT_YEARS)
-      }
+        EVENT_YEARS,
+      }}
     >
       {children}
     </SpeakerFilterContext.Provider>
