@@ -4,6 +4,7 @@ import Speaker from './Speaker';
 import useRequestDelay, { REQUEST_STATUS } from '../hooks/useRequestDelay';
 import { data } from '../../SpeakerData';
 import { SpeakerFilterContext } from '../contexts/SpeakerFilterContext';
+import SpeakerAdd from './SpeakerAdd';
 
 function SpeakersList() {
   const {
@@ -11,6 +12,8 @@ function SpeakersList() {
     requestStatus,
     error,
     updateRecord,
+    insertRecord,
+    deleteRecord,
   } = useRequestDelay(2000, data);
 
   const { searchQuery, eventYear } = useContext(SpeakerFilterContext);
@@ -31,6 +34,7 @@ function SpeakersList() {
         className='speakerslist-placeholder'
         ready={requestStatus === REQUEST_STATUS.SUCCESS}
       >
+        <SpeakerAdd eventYear={eventYear} insertRecord={insertRecord} />
         <div className='row'>
           {speakersData
             .filter(function (speaker) {
@@ -49,15 +53,9 @@ function SpeakersList() {
                 <Speaker
                   key={speaker.id}
                   speaker={speaker}
-                  onFavoriteToggle={(doneCallback) => {
-                    updateRecord(
-                      {
-                        ...speaker,
-                        favorite: !speaker.favorite,
-                      },
-                      doneCallback
-                    );
-                  }}
+                  updateRecord={updateRecord}
+                  insertRecord={insertRecord}
+                  deleteRecord={deleteRecord}
                 />
               );
             })}
